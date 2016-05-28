@@ -24,6 +24,7 @@ Gem::Specification.new do |s|
     "README.md",
     "Rakefile",
     "lib/magic_bytes.rb",
+    "magic_bytes.gemspec",
     "spec/fixtures/fixture-0x20001.eot",
     "spec/fixtures/fixture-big-endian.tif",
     "spec/fixtures/fixture-imovie.mp4",
