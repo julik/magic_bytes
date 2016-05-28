@@ -23,7 +23,6 @@ Jeweler::Tasks.new do |gem|
   gem.description = %Q{Basic file type checks based on a few header bytes}
   gem.email = "me@julik.nl"
   gem.authors = ["Julik Tarkhanov"]
-  gem.executables = ["chunkloader"]
   # dependencies defined in Gemfile
 end
 Jeweler::RubygemsDotOrgTasks.new
