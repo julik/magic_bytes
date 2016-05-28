@@ -14,7 +14,6 @@ Gem::Specification.new do |s|
   s.date = "2016-05-28"
   s.description = "Basic file type checks based on a few header bytes"
   s.email = "me@julik.nl"
-  s.executables = ["chunkloader"]
   s.extra_rdoc_files = [
     "README.md"
   ]
