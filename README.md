@@ -1,4 +1,4 @@
-A pretty much line-for-line port of https://github.com/sindresorhus/file-type
+A pretty much line-for-line port of https://github.com/sindresorhus/file-type 
 Many thanks to Sindre Sorhus for putting this together.
 
 The module has two methods: `detect` and `read_and_detect`. The former works on String
