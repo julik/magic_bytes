@@ -1,8 +1,15 @@
 module MagicBytes
-  VERSION = '1.0.1'
+  VERSION = '1.0.2'
   
-  class FileType < Struct.new(:ext, :mime)
-  end
+  # The maximum length supported (needed for .tar archives)
+  HEADER_SIZE = 262
+  
+  # Gets raised when the file being read from is at EOF or empty
+  # (when read() from the file returns `nil`)
+  ReadError = Class.new(StandardError)
+  
+  # Describes a file type with its file extension and MIME type
+  FileType = Struct.new(:ext, :mime)
   
   extend self
   
@@ -11,8 +18,9 @@ module MagicBytes
   # @param io[#read] a readable object
   # @return [Hash, nil] the hash of ext: and mime: or nil if the type could not be deduced
   def read_and_detect(io)
-    n_bytes = 262 # The maximum length supported (needed for .tar archives)
-    detect(io.read(n_bytes))
+    first_n_bytes = io.read(HEADER_SIZE)
+    raise ReadError unless first_n_bytes
+    detect(first_n_bytes)
   end
     
   # This is a line-for-line port of https://github.com/sindresorhus/file-type
@@ -21,6 +29,7 @@ module MagicBytes
   # @param header_bytes[String] the header bytes of the file
   # @return [Hash, nil] the hash of ext: and mime: or nil if the type could not be deduced
   def detect(header_bytes)
+    raise ReadError unless header_bytes
     d = _detect(header_bytes)
     FileType.new(d.fetch(:ext), d.fetch(:mime))
   end

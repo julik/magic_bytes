@@ -5,7 +5,24 @@ def get_extension(ext, name='fixture')
   file_type = File.open(path, 'r'){|f| MagicBytes.read_and_detect(f) }
 end
 
+describe 'MagicBytes.detect' do
+  it 'raises a meaningful exception with nil as argument' do
+    expect {
+      MagicBytes.detect(nil)
+    }.to raise_error(MagicBytes::ReadError)
+  end
+end
+
 describe 'MagicBytes.read_and_detect' do
+  describe 'with an empty file' do
+    it 'raises a meaningful exception' do
+      tf = Tempfile.new('x')
+      expect {
+        MagicBytes.read_and_detect(tf)
+      }.to raise_error(MagicBytes::ReadError)
+    end
+  end
+
   describe 'with the original tests from the JS version' do
     extensions = [
       'jpg',
